@@ -1,14 +1,14 @@
 import os
+import shutil
 import sys
 import urllib.request
 import glob
-from shutil import copyfile
 import zipfile
 
 
 def download_zip(url: str):
     print('Downloading zip...')
-    urllib.request.urlretrieve(url, "archive.zip")
+    urllib.request.urlretrieve(url, "Updater/archive.zip")
 
 
 def backup_config(backend_folder: str):
@@ -18,7 +18,7 @@ def backup_config(backend_folder: str):
     if os.path.exists(config_path):
         if not os.path.exists('Updater/'+backend_folder):
             os.makedirs('Updater/'+backend_folder)
-        copyfile(config_path, config_backup_path)
+        shutil.copyfile(config_path, config_backup_path)
 
 
 def restore_config(backend_folder: str):
@@ -26,7 +26,7 @@ def restore_config(backend_folder: str):
     config_file_path = backend_folder + "/configuration.txt"
     config_backup_path = 'Updater/' + config_file_path
     if os.path.exists(config_backup_path):
-        copyfile(config_backup_path, config_file_path)
+        shutil.copyfile(config_backup_path, config_file_path)
 
 
 def clear_converter_folder():
@@ -39,14 +39,15 @@ def clear_converter_folder():
         if os.path.isdir(path):
             if path == '.\\Updater':
                 continue
-            os.rmdir(path)
+            shutil.rmtree(path, ignore_errors=True)
+
         else:
             os.remove(path)
 
 
 def extract_zip():
     print('Extracting zip...')
-    with zipfile.ZipFile('archive.zip', 'r') as zip_ref:
+    with zipfile.ZipFile('Updater/archive.zip', 'r') as zip_ref:
         zip_ref.extractall('.')
 
 
@@ -67,3 +68,4 @@ backup_config(converterBackendFolder)
 clear_converter_folder()
 extract_zip()
 restore_config(converterBackendFolder)
+print('Update completed successfully!')

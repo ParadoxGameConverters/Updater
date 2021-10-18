@@ -1,0 +1,31 @@
+name: Create release
+on:
+  push:
+    tags:
+    - '*'
+jobs:
+  create_release:
+    runs-on: windows-2019
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: "Get previous tag"
+      id: previoustag
+      uses: "WyriHaximus/github-action-get-previous-tag@v1"
+    - name: "Init submodules"
+      run: |
+       git submodule update --init --recursive
+    - name: "Install requirements"
+      run: |
+       pip install -r requirements.txt
+    - name: "Create executable with pyinstaller"
+      run: |
+       pyinstaller --onefile --icon=updater.ico updater.py
+       mv $Env:GITHUB_WORKSPACE\dist\updater.exe $Env:GITHUB_WORKSPACE\updater.exe
+    - name: "Release"
+      uses: ncipollo/release-action@v1
+      with:
+        tag: ${{ steps.previoustag.outputs.tag }}
+        artifacts: updater.exe
+        token: ${{ secrets.API_TOKEN_GITHUB }}
