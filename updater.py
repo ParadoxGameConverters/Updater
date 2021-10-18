@@ -35,7 +35,6 @@ def clear_converter_folder():
     paths = glob.glob('./*', recursive=False)
     path: str
     for path in paths:
-        print(path)
         if os.path.isdir(path):
             if path == '.\\Updater':
                 continue
