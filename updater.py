@@ -4,6 +4,8 @@ import sys
 import urllib.request
 import glob
 import zipfile
+import platform
+from subprocess import Popen
 
 
 def download_zip(url: str):
@@ -49,6 +51,21 @@ def extract_zip():
         zip_ref.extractall('.')
 
 
+def open_frontend():
+    # https://stackoverflow.com/a/13256908/10249243
+    # set system/version dependent "start_new_session" analogs
+    kwargs = {}
+
+    if platform.system() == 'Windows':
+        # http://msdn.microsoft.com/en-us/library/windows/desktop/ms684863%28v=vs.85%29.aspx
+        DETACHED_PROCESS = 0x00000008
+        kwargs.update(creationflags=DETACHED_PROCESS)
+        Popen(["ConverterFrontend.exe"], close_fds=True, **kwargs)
+    else:
+        kwargs.update(start_new_session=True)
+        Popen(["ConverterFrontend"], close_fds=True, **kwargs)
+
+
 # First argument: URL of converter release .zip to download
 # Second argument: name of converter backend folder
 if len(sys.argv) != 3:
@@ -67,4 +84,5 @@ clear_converter_folder()
 extract_zip()
 restore_config(converterBackendFolder)
 print('Update completed successfully!')
+open_frontend()
 sys.exit(0)
