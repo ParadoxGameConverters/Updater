@@ -39,7 +39,6 @@ def clear_converter_folder():
             if path == '.\\Updater':
                 continue
             shutil.rmtree(path, ignore_errors=True)
-
         else:
             os.remove(path)
 
