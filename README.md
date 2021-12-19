@@ -1,5 +1,5 @@
 # Updater
-Updater for PGCG (Paradox Game Converters Group) converters written in Python.
+Updater for PGCG (Paradox Game Converters Group) converters, written in Python.
 
 Needs to be put inside an "Updater" directory in the root converter directory.
 
