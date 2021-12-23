@@ -9,7 +9,7 @@ from subprocess import Popen
 
 
 def download_zip(url: str):
-    print('Downloading zip...')
+    print('Downloading zip from {0}...'.format(url))
     urllib.request.urlretrieve(url, "Updater/archive.zip")
 
 
