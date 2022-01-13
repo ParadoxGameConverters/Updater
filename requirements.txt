@@ -6,15 +6,9 @@
 #
 altgraph==0.17.2
     # via pyinstaller
-future==0.18.2
-    # via pefile
-pefile==2021.9.3
-    # via pyinstaller
-pyinstaller==4.7
+pyinstaller==4.8
     # via -r requirements.in
 pyinstaller-hooks-contrib==2021.5
-    # via pyinstaller
-pywin32-ctypes==0.2.0
     # via pyinstaller
 urllib3==1.26.8
     # via -r requirements.in
