@@ -6,7 +6,7 @@
 #
 altgraph==0.17.2
     # via pyinstaller
-pyinstaller==4.8
+pyinstaller==4.9
     # via -r requirements.in
 pyinstaller-hooks-contrib==2021.5
     # via pyinstaller
