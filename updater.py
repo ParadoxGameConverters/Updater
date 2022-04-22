@@ -1,16 +1,22 @@
 import os
+import shutil
 import sys
-
-# change working directory to script's location
-running_updater_path = sys.path[0]
-os.chdir(running_updater_path)
-
 import urllib.request
 import glob
 import zipfile
 import platform
 from subprocess import Popen
-import shutil
+
+
+# change working directory to script's location
+if getattr(sys, 'frozen', False):
+    # If the application is run as a bundle, the PyInstaller bootloader
+    # extends the sys module by a flag frozen=True and sets the app 
+    # path into variable _MEIPASS'.y
+    running_updater_path = sys._MEIPASS
+else:
+    running_updater_path = os.path.dirname(os.path.abspath(__file__))
+os.chdir(running_updater_path)
 
 
 def download_zip(url: str):
@@ -18,10 +24,10 @@ def download_zip(url: str):
     urllib.request.urlretrieve(url, "archive.zip")
 
 
-def backup_config(backend_folder: str): # TODO: CHECK PATHS
+def backup_config(backend_folder: str):
     print('Backing up configuration...')
     config_backup_path = os.path.join(backend_folder, "configuration.txt")
-    config_path = os.path.join('..', config_backup_path)
+    config_path = os.path.join('./../', config_backup_path)
     if os.path.exists(config_path):
         if not os.path.exists(backend_folder):
             os.makedirs(backend_folder)
@@ -31,7 +37,7 @@ def backup_config(backend_folder: str): # TODO: CHECK PATHS
 def restore_config(backend_folder: str):
     print('Restoring configuration...')
     config_backup_path = os.path.join(backend_folder, "configuration.txt")
-    config_path = os.path.join('..', config_backup_path)
+    config_path = os.path.join('./../', config_backup_path)
     if os.path.exists(config_backup_path):
         shutil.copyfile(config_backup_path, config_path)
 
@@ -43,7 +49,7 @@ def clear_converter_folder():
     path: str
     for path in paths:
         if os.path.isdir(path):
-            if path == running_updater_path:
+            if os.path.samefile(path, running_updater_path):
                 continue
             shutil.rmtree(path, ignore_errors=True)
         else:
@@ -57,6 +63,8 @@ def extract_zip():
 
 
 def open_frontend():
+    os.chdir('../')
+
     # https://stackoverflow.com/a/13256908/10249243
     # set system/version dependent "start_new_session" analogs
     kwargs = {}
@@ -65,10 +73,10 @@ def open_frontend():
         # http://msdn.microsoft.com/en-us/library/windows/desktop/ms684863%28v=vs.85%29.aspx
         DETACHED_PROCESS = 0x00000008
         kwargs.update(creationflags=DETACHED_PROCESS)
-        Popen(["../ConverterFrontend.exe"], close_fds=True, **kwargs)
+        Popen(["ConverterFrontend.exe"], close_fds=True, **kwargs)
     else:
         kwargs.update(start_new_session=True)
-        Popen(["../ConverterFrontend"], close_fds=True, **kwargs)
+        Popen(["ConverterFrontend"], close_fds=True, **kwargs)
 
 
 # First argument: URL of converter release .zip to download
