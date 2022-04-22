@@ -22,4 +22,4 @@ jobs:
        pip3 install -r requirements.txt
     - name: "Create executable with pyinstaller"
       run: |
-       pyinstaller --onefile --icon=updater.ico updater.py
+       pyinstaller --icon=updater.ico updater.py

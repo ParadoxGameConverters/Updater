@@ -21,11 +21,16 @@ jobs:
        pip3 install -r requirements.txt
     - name: "Create executable with pyinstaller"
       run: |
-       pyinstaller --onefile --icon=updater.ico updater.py
-       mv $Env:GITHUB_WORKSPACE\dist\updater.exe $Env:GITHUB_WORKSPACE\updater.exe
+       pyinstaller --icon=updater.ico updater.py
+    - name: "Archive release"
+      uses: thedoctor0/zip-release@master
+      with:
+        type: 'zip'
+        path: dist/updater/
+        filename: 'updater.zip'
     - name: "Release"
       uses: ncipollo/release-action@v1
       with:
         tag: ${{ steps.previoustag.outputs.tag }}
-        artifacts: updater.exe
+        artifacts: updater.zip
         token: ${{ secrets.API_TOKEN_GITHUB }}
