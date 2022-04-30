@@ -1,11 +1,12 @@
 import os
 import shutil
 import sys
-import urllib.request
 import glob
-import zipfile
 import platform
 from subprocess import Popen
+from urllib.request import urlopen
+from urllib.request import urlretrieve
+import cgi
 
 
 # change working directory to script's location
@@ -19,9 +20,15 @@ else:
 os.chdir(running_updater_path)
 
 
-def download_zip(url: str):
-    print('Downloading zip from {0}...'.format(url))
-    urllib.request.urlretrieve(url, "archive.zip")
+def download_archive(url: str):
+    remotefile = urlopen(url)
+    content_header = remotefile.info()['Content-Disposition']
+    value, params = cgi.parse_header(content_header)
+    filename = params["filename"]
+    print('Downloading archive from {0}...'.format(url))
+    urlretrieve(url, filename)
+
+    return filename
 
 
 def backup_config(backend_folder: str):
@@ -56,10 +63,9 @@ def clear_converter_folder():
             os.remove(path)
 
 
-def extract_zip():
-    print('Extracting zip...')
-    with zipfile.ZipFile("archive.zip", 'r') as zip_ref:
-        zip_ref.extractall('..')
+def extract_archive(archive_filename):
+    print('Extracting archive...')
+    shutil.unpack_archive(archive_filename, '..')
 
 
 def open_frontend():
@@ -91,10 +97,10 @@ if not os.path.isdir(os.path.join('..', converterBackendFolder)):
     print('Converter backend folder {0} does not exist!'.format(converterBackendFolder))
     sys.exit(2)
 
-download_zip(converterZipURL)
+archive_filename = download_archive(converterZipURL)
 backup_config(converterBackendFolder)
 clear_converter_folder()
-extract_zip()
+extract_archive(archive_filename)
 restore_config(converterBackendFolder)
 print('Update completed successfully!')
 open_frontend()
