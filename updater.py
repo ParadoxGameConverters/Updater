@@ -66,8 +66,6 @@ def clear_converter_folder():
                 absolute_path.unlink()
             except FileNotFoundError:
                 pass
-            except PermissionError:
-                pass
             except Exception as e:
                 print(e)
 
