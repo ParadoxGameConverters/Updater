@@ -7,6 +7,7 @@ from subprocess import Popen
 from urllib.request import urlopen
 from urllib.request import urlretrieve
 import cgi
+import pathlib
 
 
 # change working directory to script's location
@@ -60,7 +61,13 @@ def clear_converter_folder():
                 continue
             shutil.rmtree(path, ignore_errors=True)
         else:
-            os.remove(path)
+            try:
+                absolute_path = pathlib.Path(os.path.abspath(path))
+                absolute_path.unlink()
+            except FileNotFoundError:
+                pass
+            except Exception as e:
+                print(e)
 
 
 def extract_archive(archive_filename):
