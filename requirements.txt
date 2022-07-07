@@ -10,7 +10,7 @@ pyinstaller==5.1
     # via -r requirements.in
 pyinstaller-hooks-contrib==2021.5
     # via pyinstaller
-urllib3==1.26.9
+urllib3==1.26.10
     # via -r requirements.in
 
 # The following packages are considered to be unsafe in a requirements file:
