@@ -1,8 +1,10 @@
 name: Bump version
+
 on:
   push:
     branches:
-      - master
+      - main
+
 jobs:
   bump_tag:
     runs-on: ubuntu-latest
