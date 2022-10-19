@@ -1,3 +1,4 @@
+import logging
 import os
 import shutil
 import sys
@@ -8,6 +9,9 @@ from urllib.request import urlopen
 from urllib.request import urlretrieve
 import cgi
 import pathlib
+
+
+logging.basicConfig(filename='updater.log', encoding='utf-8', level=logging.DEBUG)
 
 
 # change working directory to script's location
@@ -26,14 +30,14 @@ def download_archive(url: str):
     content_header = remotefile.info()['Content-Disposition']
     value, params = cgi.parse_header(content_header)
     filename = params["filename"]
-    print('Downloading archive from {0}...'.format(url))
+    logging.info('Downloading archive from {0}...'.format(url))
     urlretrieve(url, filename)
 
     return filename
 
 
 def backup_config(backend_folder: str):
-    print('Backing up configuration...')
+    logging.info('Backing up configuration...')
     config_backup_path = os.path.join(backend_folder, "configuration.txt")
     config_path = os.path.join('./../', config_backup_path)
     if os.path.exists(config_path):
@@ -43,7 +47,7 @@ def backup_config(backend_folder: str):
 
 
 def restore_config(backend_folder: str):
-    print('Restoring configuration...')
+    logging.info('Restoring configuration...')
     config_backup_path = os.path.join(backend_folder, "configuration.txt")
     config_path = os.path.join('./../', config_backup_path)
     if os.path.exists(config_backup_path):
@@ -51,27 +55,29 @@ def restore_config(backend_folder: str):
 
 
 def clear_converter_folder():
-    print('Clearing converter folder...')
+    logging.info('Clearing converter folder...')
 
     paths = glob.glob('../*', recursive=False)
     path: str
     for path in paths:
         if os.path.isdir(path):
+            # remove directory
             if os.path.samefile(path, running_updater_path):
                 continue
             shutil.rmtree(path, ignore_errors=True)
         else:
+            # remove file
             try:
                 absolute_path = pathlib.Path(os.path.abspath(path))
                 absolute_path.unlink()
             except FileNotFoundError:
                 pass
             except Exception as e:
-                print(e)
+                logging.warning(f"Failed to remove file: {e}")
 
 
 def extract_archive(archive_filename):
-    print('Extracting archive...')
+    logging.info('Extracting archive...')
     shutil.unpack_archive(archive_filename, '..')
 
 
@@ -95,13 +101,13 @@ def open_frontend():
 # First argument: URL of converter release .zip to download
 # Second argument: name of converter backend folder
 if len(sys.argv) != 3:
-    print('Incorrect number of arguments! Should be 2.')
+    logging.error('Incorrect number of arguments! Should be 2.')
     sys.exit(1)
 
 converterZipURL = sys.argv[1]
 converterBackendFolder = sys.argv[2]
 if not os.path.isdir(os.path.join('..', converterBackendFolder)):
-    print('Converter backend folder {0} does not exist!'.format(converterBackendFolder))
+    logging.error('Converter backend folder {0} does not exist!'.format(converterBackendFolder))
     sys.exit(2)
 
 archive_filename = download_archive(converterZipURL)
@@ -109,6 +115,6 @@ backup_config(converterBackendFolder)
 clear_converter_folder()
 extract_archive(archive_filename)
 restore_config(converterBackendFolder)
-print('Update completed successfully!')
+logging.info('Update completed successfully!')
 open_frontend()
 sys.exit(0)
