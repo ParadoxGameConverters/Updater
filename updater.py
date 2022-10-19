@@ -11,9 +11,6 @@ import cgi
 import pathlib
 
 
-logging.basicConfig(filename='updater.log', encoding='utf-8', level=logging.DEBUG)
-
-
 # change working directory to script's location
 if getattr(sys, 'frozen', False):
     # If the application is run as a bundle, the PyInstaller bootloader
@@ -23,6 +20,12 @@ if getattr(sys, 'frozen', False):
 else:
     running_updater_path = os.path.dirname(os.path.abspath(__file__))
 os.chdir(running_updater_path)
+
+
+# Logging configuration: log to file and console.
+LOG_FILE_NAME = 'updater.log'
+logging.basicConfig(filename=LOG_FILE_NAME, encoding='utf-8', level=logging.DEBUG)
+logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
 
 
 def download_archive(url: str):
@@ -63,6 +66,7 @@ def clear_converter_folder():
         if os.path.isdir(path):
             # remove directory
             if os.path.samefile(path, running_updater_path):
+                # Don't remove running updater folder.
                 continue
             shutil.rmtree(path, ignore_errors=True)
         else:
