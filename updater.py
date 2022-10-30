@@ -99,7 +99,7 @@ def open_frontend():
         Popen(["ConverterFrontend.exe"], close_fds=True, **kwargs)
     else:
         kwargs.update(start_new_session=True)
-        Popen(["ConverterFrontend"], close_fds=True, **kwargs)
+        Popen(["./ConverterFrontend"], close_fds=True, **kwargs)
 
 
 # First argument: URL of converter release .zip to download
