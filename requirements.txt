@@ -14,5 +14,5 @@ urllib3==1.26.13
     # via -r requirements.in
 
 # The following packages are considered to be unsafe in a requirements file:
-setuptools==60.5.0
+setuptools==65.5.1
     # via pyinstaller
