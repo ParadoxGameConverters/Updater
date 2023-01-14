@@ -81,7 +81,7 @@ def clear_converter_folder():
 
 
 def extract_archive(archive_filename):
-    logging.info('Extracting archive...')
+    logging.info(f'Extracting archive {archive_filename}...')
     shutil.unpack_archive(archive_filename, '../')
 
 
