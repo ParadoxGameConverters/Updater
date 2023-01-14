@@ -133,3 +133,6 @@ dmypy.json
 
 # directory for testing
 TESTDIR/
+
+# Poetry stuff
+poetry.lock

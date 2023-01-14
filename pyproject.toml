@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "updater"
+version = "0.1.0"
+description = ""
+authors = ["ParadoxGameConverters"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.12"
+urllib3 = "1.26.14"
+pyinstaller = "5.7.0"
+wheel = "^0.38.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

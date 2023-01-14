@@ -8,7 +8,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest, [self-hosted, Linux], [self-hosted, Windows]]
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v3
@@ -16,7 +16,9 @@ jobs:
         submodules: recursive
     - name: "Install requirements"
       run: |
-       pip3 install -r requirements.txt
+       pip3 install pip-tools
+       python3 -m piptools compile -o requirements.txt pyproject.toml
+       pip3 install -r requirements.txt 
     - name: "Create executable with pyinstaller"
       run: |
        pyinstaller --icon=updater.ico updater.py
