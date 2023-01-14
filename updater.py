@@ -80,9 +80,11 @@ def clear_converter_folder():
                 logging.warning(f"Failed to remove file: {e}")
 
 
-def extract_archive(archive_filename):
-    logging.info('Extracting archive...')
-    shutil.unpack_archive(archive_filename, '..')
+def extract_archive(archive_filename: str):
+    logging.info(f'Extracting archive {archive_filename}...')
+    
+    target_directory = "../"
+    shutil.unpack_archive(archive_filename, target_directory)
 
 
 def open_frontend():
