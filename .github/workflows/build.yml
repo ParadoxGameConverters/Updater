@@ -34,7 +34,8 @@ jobs:
               export DOWNLOAD_URL="https://github.com/ParadoxGameConverters/ImperatorToCK3/releases/download/6.2.4/ImperatorToCK3-linux-x64.tgz"
               ./updater $DOWNLOAD_URL "ImperatorToCK3"
         else
-              ./updater $DOWNLOAD_URL "ImperatorToCK3"
+              echo "Unknown OS: $RUNNER_OS"
+              exit 1
         fi
       shell: bash
 
