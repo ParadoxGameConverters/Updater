@@ -22,7 +22,7 @@ jobs:
     - name: "Check if updater works correctly"
       working-directory: dist/updater
       run: |
-        mkdir ImperatorToCK3
+        mkdir ../ImperatorToCK3
         if [ "$RUNNER_OS" == "Windows" ]; then
               ./updater.exe "https://github.com/ParadoxGameConverters/ImperatorToCK3/releases/download/1.2.3/ImperatorToCK3.zip" "ImperatorToCK3"
         else
