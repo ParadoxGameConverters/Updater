@@ -82,7 +82,7 @@ def clear_converter_folder():
                 logging.warning(f"Failed to remove file: {e}")
 
 
-def extract_archive(archive_filename):
+def extract_archive(archive_filename: str):
     target_directory = "../"
     logging.info(f'Extracting archive {archive_filename}...')
 
