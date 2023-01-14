@@ -17,7 +17,7 @@ jobs:
     - name: "Install requirements"
       run: |
        pip3 install pip-tools
-       python -m piptools compile -o requirements.txt pyproject.toml
+       python3 -m piptools compile -o requirements.txt pyproject.toml
        pip3 install -r requirements.txt 
     - name: "Create executable with pyinstaller"
       run: |
