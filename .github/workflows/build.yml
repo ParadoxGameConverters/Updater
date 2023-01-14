@@ -21,17 +21,18 @@ jobs:
       run: |
        pyinstaller --icon=updater.ico updater.py
     - name: "Check if updater works correctly"
-      working-directory: dist
       run: |
+        mkdir Release
+        mkdir -p Release/Updater
+        mv dist/updater/* Release/Updater/
+        mkdir -p Release/ImperatorToCK3
+        cd Release/Updater
         if [ "$RUNNER_OS" == "Windows" ]; then
-          mkdir CK3toEU4
-          ./updater/updater.exe "https://github.com/ParadoxGameConverters/CK3toEU4/releases/download/0.12L/CK3toEU4-0.12Lollard-win-x64.zip" "CK3toEU4/"
+          ./updater.exe "https://github.com/ParadoxGameConverters/ImperatorToCK3/releases/download/6.1.3/ImperatorToCK3-win-x64.zip" "ImperatorToCK3/"
         elif [ "$RUNNER_OS" == "macOS" ]; then
-          mkdir ImperatorToCK3
-          ./updater/updater "https://github.com/ParadoxGameConverters/ImperatorToCK3/releases/download/6.1.3/ImperatorToCK3-osx-x64.tgz" "ImperatorToCK3/"
+          ./updater "https://github.com/ParadoxGameConverters/ImperatorToCK3/releases/download/6.1.3/ImperatorToCK3-osx-x64.tgz" "ImperatorToCK3/"
         elif [ "$RUNNER_OS" == "Linux" ]; then
-          mkdir ImperatorToCK3
-          ./updater/updater "https://github.com/ParadoxGameConverters/ImperatorToCK3/releases/download/6.1.3/ImperatorToCK3-linux-x64.tgz" "ImperatorToCK3/"
+          ./updater "https://github.com/ParadoxGameConverters/ImperatorToCK3/releases/download/6.1.3/ImperatorToCK3-linux-x64.tgz" "ImperatorToCK3/"
         else
           echo "Unknown OS: $RUNNER_OS"
           exit 1
