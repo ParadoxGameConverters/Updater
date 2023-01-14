@@ -18,11 +18,8 @@ jobs:
       uses: "WyriHaximus/github-action-get-previous-tag@v1"
     - name: "Install Poetry"
       run: |
-        if [ "$RUNNER_OS" == "Windows" ]; then
-          (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
-        else
-          curl -sSL https://install.python-poetry.org | python3 -
-        fi
+        (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
+      shell: bash
     - name: "Install requirements"
       run: |
        poetry config virtualenvs.create false
