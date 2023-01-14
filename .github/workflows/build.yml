@@ -25,17 +25,14 @@ jobs:
       run: |
         mkdir ../ImperatorToCK3
         if [ "$RUNNER_OS" == "Windows" ]; then
-              export DOWNLOAD_URL="https://github.com/ParadoxGameConverters/ImperatorToCK3/releases/download/6.2.4/ImperatorToCK3-win-x64.zip"
-              ./updater.exe $DOWNLOAD_URL "ImperatorToCK3"
+          ./updater.exe "https://github.com/ParadoxGameConverters/ImperatorToCK3/releases/download/6.2.4/ImperatorToCK3-win-x64.zip" "ImperatorToCK3"
         elif [ "$RUNNER_OS" == "macOS" ]; then
-              export DOWNLOAD_URL="https://github.com/ParadoxGameConverters/ImperatorToCK3/releases/download/6.2.4/ImperatorToCK3-osx-x64.tgz"
-              ./updater $DOWNLOAD_URL "ImperatorToCK3"
+          ./updater "https://github.com/ParadoxGameConverters/ImperatorToCK3/releases/download/6.2.4/ImperatorToCK3-osx-x64.tgz" "ImperatorToCK3"
         elif [ "$RUNNER_OS" == "Linux" ]; then
-              export DOWNLOAD_URL="https://github.com/ParadoxGameConverters/ImperatorToCK3/releases/download/6.2.4/ImperatorToCK3-linux-x64.tgz"
-              ./updater $DOWNLOAD_URL "ImperatorToCK3"
+          ./updater "https://github.com/ParadoxGameConverters/ImperatorToCK3/releases/download/6.2.4/ImperatorToCK3-linux-x64.tgz" "ImperatorToCK3"
         else
-              echo "Unknown OS: $RUNNER_OS"
-              exit 1
+          echo "Unknown OS: $RUNNER_OS"
+          exit 1
         fi
       shell: bash
 
