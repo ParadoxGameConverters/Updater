@@ -16,9 +16,14 @@ jobs:
     - name: "Get previous tag"
       id: previoustag
       uses: "WyriHaximus/github-action-get-previous-tag@v1"
+    - name: "Install Poetry"
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
+        else
+          curl -sSL https://install.python-poetry.org | python3 -
+        fi
     - name: "Install requirements"
       run: |
-       pip3 install poetry
        poetry config virtualenvs.create false
        poetry install --no-interaction
     - name: "Create executable with pyinstaller"
