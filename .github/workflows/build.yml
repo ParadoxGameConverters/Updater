@@ -25,9 +25,16 @@ jobs:
       run: |
         mkdir ../ImperatorToCK3
         if [ "$RUNNER_OS" == "Windows" ]; then
-              ./updater.exe "https://github.com/ParadoxGameConverters/ImperatorToCK3/releases/download/1.2.3/ImperatorToCK3.zip" "ImperatorToCK3"
+              export DOWNLOAD_URL="https://github.com/ParadoxGameConverters/ImperatorToCK3/releases/download/6.2.4/ImperatorToCK3-win-x64.zip"
+              ./updater.exe $DOWNLOAD_URL "ImperatorToCK3"
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+              export DOWNLOAD_URL="https://github.com/ParadoxGameConverters/ImperatorToCK3/releases/download/6.2.4/ImperatorToCK3-osx-x64.zip"
+              ./updater $DOWNLOAD_URL "ImperatorToCK3"
+        elif [ "$RUNNER_OS" == "Linux" ]; then
+              export DOWNLOAD_URL="https://github.com/ParadoxGameConverters/ImperatorToCK3/releases/download/6.2.4/ImperatorToCK3-linux-x64.zip"
+              ./updater $DOWNLOAD_URL "ImperatorToCK3"
         else
-              ./updater "https://github.com/ParadoxGameConverters/ImperatorToCK3/releases/download/1.2.3/ImperatorToCK3.zip" "ImperatorToCK3"
+              ./updater $DOWNLOAD_URL "ImperatorToCK3"
         fi
       shell: bash
 
