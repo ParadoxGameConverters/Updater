@@ -16,7 +16,7 @@ jobs:
         submodules: recursive
     - name: "Install requirements"
       run: |
-       pip install .
+       pip3 install .
     - name: "Create executable with pyinstaller"
       run: |
        pyinstaller --icon=updater.ico updater.py

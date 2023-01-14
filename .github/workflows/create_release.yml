@@ -18,7 +18,7 @@ jobs:
       uses: "WyriHaximus/github-action-get-previous-tag@v1"
     - name: "Install requirements"
       run: |
-       pip install .
+       pip3 install .
     - name: "Create executable with pyinstaller"
       run: |
        pyinstaller --icon=updater.ico updater.py
