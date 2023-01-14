@@ -1,7 +1,7 @@
-name: Build
+name: "Build and test"
 
 on:
-  push:
+  pull_request:
 
 jobs:
   build:
@@ -19,3 +19,13 @@ jobs:
     - name: "Create executable with pyinstaller"
       run: |
        pyinstaller --icon=updater.ico updater.py
+    - name: "Check if updater works correctly"
+      working-directory: dist/updater
+      run: |
+        if [ "$RUNNER_OS" == "Windows" ]; then
+              ./updater.exe "https://github.com/ParadoxGameConverters/ImperatorToCK3/releases/download/1.2.3/ImperatorToCK3.zip" "ImperatorToCK3"
+        else
+              ./updater "https://github.com/ParadoxGameConverters/ImperatorToCK3/releases/download/1.2.3/ImperatorToCK3.zip" "ImperatorToCK3"
+        fi
+      shell: bash
+
