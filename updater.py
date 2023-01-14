@@ -81,8 +81,9 @@ def clear_converter_folder():
 
 
 def extract_archive(archive_filename):
-    logging.info(f'Extracting archive {archive_filename}...')
-    shutil.unpack_archive(archive_filename, '../')
+    absolute_path = os.path.abspath(archive_filename)
+    logging.info(f'Extracting archive {absolute_path}...')
+    shutil.unpack_archive(absolute_path, '../')
 
 
 def open_frontend():
