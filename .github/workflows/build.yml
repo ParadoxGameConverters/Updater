@@ -16,7 +16,9 @@ jobs:
         submodules: recursive
     - name: "Install requirements"
       run: |
-       pip3 install -r requirements.txt
+       pip3 install poetry
+       poetry config virtualenvs.create false
+       poetry install --no-interaction
     - name: "Create executable with pyinstaller"
       run: |
        pyinstaller --icon=updater.ico updater.py
