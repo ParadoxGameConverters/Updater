@@ -9,6 +9,8 @@ from urllib.request import urlopen
 from urllib.request import urlretrieve
 import cgi
 import pathlib
+import zipfile
+import tarfile
 
 
 # change working directory to script's location
@@ -81,9 +83,18 @@ def clear_converter_folder():
 
 
 def extract_archive(archive_filename):
-    absolute_path = os.path.abspath(archive_filename)
-    logging.info(f'Extracting archive {absolute_path}...')
-    shutil.unpack_archive(absolute_path, '../')
+    target_directory = "../"
+    logging.info(f'Extracting archive {archive_filename}...')
+
+    if archive_filename.endswith('.zip'):
+        with zipfile.ZipFile(archive_filename, 'r') as zip_ref:
+            zip_ref.extractall(target_directory)
+    elif archive_filename.endswith('.tgz'):
+        with tarfile.open(archive_filename, "r:gz") as tar:
+            tar.extractall(target_directory)
+    else:
+        logging.info(f'Unknown archive format: {archive_filename}')
+        shutil.unpack_archive(archive_filename, target_directory)
 
 
 def open_frontend():
