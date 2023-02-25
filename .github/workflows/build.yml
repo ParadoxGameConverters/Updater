@@ -16,8 +16,7 @@ jobs:
         submodules: recursive
     - name: "Install requirements"
       run: |
-       pip3 install pip-tools
-       python3 -m piptools compile -o requirements.txt pyproject.toml
+       poetry export -f requirements.txt --output requirements.txt
        pip3 install -r requirements.txt 
     - name: "Create executable with pyinstaller"
       run: |
