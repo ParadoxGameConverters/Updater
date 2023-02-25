@@ -19,6 +19,7 @@ jobs:
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
           curl -sSL https://install.python-poetry.org | python3 -
+          export PATH="$HOME/.local/bin:$PATH"
         else
           pip3 install poetry
         fi
