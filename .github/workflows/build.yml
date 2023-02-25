@@ -16,7 +16,11 @@ jobs:
         submodules: recursive
     - name: "Install requirements"
       run: |
-        pip3 install poetry
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          curl -sSL https://install.python-poetry.org | python3 -
+        else
+          pip3 install poetry
+        fi
         poetry export -f requirements.txt --output requirements.txt
         pip3 install -r requirements.txt 
     - name: "Create executable with pyinstaller"
