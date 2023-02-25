@@ -16,7 +16,7 @@ jobs:
         submodules: recursive
     - name: "Install requirements"
       run: |
-        pip3 install poetry --break-system-packages
+        pip3 install poetry
         poetry export -f requirements.txt --output requirements.txt
         pip3 install -r requirements.txt 
     - name: "Create executable with pyinstaller"
