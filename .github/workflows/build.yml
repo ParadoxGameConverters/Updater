@@ -17,13 +17,6 @@ jobs:
     - name: "Install requirements"
       shell: bash
       run: |
-        if [ "$RUNNER_OS" == "Linux" ]; then
-          curl -sSL https://install.python-poetry.org | python3 -
-          export PATH="$HOME/.local/bin:$PATH"
-        else
-          pip3 install poetry
-        fi
-        poetry export -f requirements.txt --output requirements.txt
         pip3 install -r requirements.txt 
     - name: "Create executable with pyinstaller"
       run: |
