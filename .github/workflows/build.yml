@@ -17,7 +17,11 @@ jobs:
     - name: Create and start virtual environment
       run: |
         python3 -m venv venv
-        source venv/bin/activate
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          venvironment\Scripts\activate
+        else
+          source venv/bin/activate
+        fi
     - name: "Install requirements"
       run: |
         pip3 install pip-tools
