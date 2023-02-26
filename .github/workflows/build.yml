@@ -15,6 +15,7 @@ jobs:
       with:
         submodules: recursive
     - name: Create and start virtual environment
+      shell: bash
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
           sudo apt install python3-venv
