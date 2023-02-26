@@ -19,7 +19,7 @@ jobs:
       run: |
         python3 -m venv venv
         if [ "$RUNNER_OS" == "Windows" ]; then
-          pwsh venv/Scripts/Activate.ps1
+          ./venv/Scripts/activate.bat
         else
           source venv/bin/activate
         fi
