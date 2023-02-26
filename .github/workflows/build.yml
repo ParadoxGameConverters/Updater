@@ -17,9 +17,6 @@ jobs:
     - name: Create and start virtual environment
       shell: bash
       run: |
-        if [ "$RUNNER_OS" == "Linux" ]; then
-          apt install python3-venv
-        fi
         python3 -m venv venv
         if [ "$RUNNER_OS" == "Windows" ]; then
           venvironment\Scripts\activate
