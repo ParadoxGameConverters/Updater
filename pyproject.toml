@@ -9,7 +9,7 @@ readme = "README.md"
 python = ">=3.9,<3.12"
 urllib3 = "1.26.14"
 pyinstaller = "5.9.0"
-wheel = "^0.38.4"
+wheel = "^0.40.0"
 
 
 [build-system]
