@@ -26,12 +26,12 @@ jobs:
         pip3 install pip-tools
         python3 -m piptools compile -o requirements.txt pyproject.toml
         pip3 install -r requirements.txt
-        pyinstaller --icon=updater.ico updater.py
+        pyinstaller --onefile --icon=updater.ico updater.py
     - name: "Check if updater works correctly"
       run: |
         mkdir Release
         mkdir -p Release/Updater
-        mv dist/updater/* Release/Updater/
+        mv dist/* Release/Updater/
         mkdir -p Release/ImperatorToCK3
         mv Release/Updater Release/Updater-running
         cd Release/Updater-running

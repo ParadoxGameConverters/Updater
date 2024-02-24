@@ -23,7 +23,7 @@ jobs:
        pip3 install -r requirements.txt 
     - name: "Create executable with pyinstaller"
       run: |
-       pyinstaller --icon=updater.ico updater.py
+       pyinstaller --onefile --icon=updater.ico updater.py
     - name: "Archive release"
       uses: thedoctor0/zip-release@master
       with:
