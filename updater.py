@@ -11,15 +11,13 @@ import cgi
 import pathlib
 
 
-# change working directory to script's location
+# Change working directory to updater.exe's directory.
+# The if below determines whether the app is a script file or frozen exe.
 if getattr(sys, 'frozen', False):
-    # If the application is run as a bundle, the PyInstaller bootloader
-    # extends the sys module by a flag frozen=True and sets the app 
-    # path into variable _MEIPASS
-    running_updater_path = sys._MEIPASS
-else:
-    running_updater_path = os.path.dirname(os.path.abspath(__file__))
-os.chdir(running_updater_path)
+    running_updater_dir = os.path.dirname(sys.executable)
+elif __file__:
+    running_updater_dir = os.path.dirname(__file__)
+os.chdir(running_updater_dir)
 
 
 # Logging configuration: log to file and console.
@@ -65,7 +63,7 @@ def clear_converter_folder():
     for path in paths:
         if os.path.isdir(path):
             # remove directory
-            if os.path.samefile(path, running_updater_path):
+            if os.path.samefile(path, running_updater_dir):
                 # Don't remove running updater folder.
                 continue
             shutil.rmtree(path, ignore_errors=True)
