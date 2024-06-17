@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.12"
-urllib3 = "2.2.1"
+urllib3 = "2.2.2"
 pyinstaller = "6.8.0"
 wheel = "^0.43.0"
 
