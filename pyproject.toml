@@ -10,6 +10,7 @@ python = ">=3.9,<3.12"
 urllib3 = "2.2.3"
 pyinstaller = "6.11.0"
 wheel = "^0.44.0"
+legacy-cgi = { version = "2.6.1", markers = "python_version >= '3.13'" }
 
 
 [build-system]
