@@ -4,12 +4,13 @@ version = "0.1.0"
 description = ""
 authors = ["ParadoxGameConverters"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.12"
-urllib3 = "2.3.0"
-pyinstaller = "6.12.0"
-wheel = "^0.45.0"
+urllib3 = "2.5.0"
+pyinstaller = "6.14.1"
+wheel = "0.45.1"
 legacy-cgi = { version = "2.6.1", markers = "python_version >= '3.13'" }
 
 
