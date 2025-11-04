@@ -1,7 +1,7 @@
 # Updater
 Updater for PGCG (Paradox Game Converters Group) converters, written in Python.
 
-Requires Python 3.9 or newer.
+Requires Python 3.11 or newer.
 
 Needs to be put inside an "Updater" directory in the root converter directory.
 
