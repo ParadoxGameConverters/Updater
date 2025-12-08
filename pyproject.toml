@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.11,<3.15"
-urllib3 = "2.6.0"
+urllib3 = "2.6.1"
 pyinstaller = "6.17.0"
 wheel = "0.45.1"
 legacy-cgi = { version = "2.6.4", markers = "python_version >= '3.13'" }
