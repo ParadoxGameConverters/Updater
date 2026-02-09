@@ -18,7 +18,7 @@ jobs:
       uses: "WyriHaximus/github-action-get-previous-tag@v1"
     - name: "Install requirements"
       run: |
-       pip3 install "pip<26" "pip-tools==7.4.0"
+      pip3 install "pip<25.3" "pip-tools==7.4.0"
        python3 -m piptools compile -o requirements.txt pyproject.toml
        pip3 install -r requirements.txt 
     - name: "Create executable with pyinstaller"
