@@ -27,7 +27,7 @@ jobs:
         $PYTHON -m pip install "pip-tools>=7.0.0"
         $PYTHON -m piptools compile -o requirements.txt pyproject.toml
         $PYTHON -m pip install -r requirements.txt
-        $PYTHON -m PyInstaller --onefile --icon=updater.ico updater.py
+        $PYTHON -m pyinstaller --onefile --icon=updater.ico updater.py
     - name: "Check if updater works correctly"
       run: |
         mkdir Release
