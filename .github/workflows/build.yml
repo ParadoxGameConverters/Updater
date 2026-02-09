@@ -19,15 +19,15 @@ jobs:
       run: |
         python3 -m venv venv
         if [ "$RUNNER_OS" == "Windows" ]; then
-          ./venv/Scripts/activate.bat
+          PYTHON="./venv/Scripts/python"
         else
-          source venv/bin/activate
+          PYTHON="./venv/bin/python"
         fi
-        python -m pip install --upgrade pip
-        python -m pip install pip-tools>=7.0.0
-        python -m piptools compile -o requirements.txt pyproject.toml
-        python -m pip install -r requirements.txt
-        pyinstaller --onefile --icon=updater.ico updater.py
+        $PYTHON -m pip install --upgrade pip
+        $PYTHON -m pip install "pip-tools>=7.0.0"
+        $PYTHON -m piptools compile -o requirements.txt pyproject.toml
+        $PYTHON -m pip install -r requirements.txt
+        $PYTHON -m PyInstaller --onefile --icon=updater.ico updater.py
     - name: "Check if updater works correctly"
       run: |
         mkdir Release
