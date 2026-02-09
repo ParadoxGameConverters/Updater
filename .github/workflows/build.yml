@@ -23,10 +23,10 @@ jobs:
         else
           source venv/bin/activate
         fi
-        pip3 install --upgrade pip
-        pip3 install pip-tools>=7.0.0
-        python3 -m piptools compile -o requirements.txt pyproject.toml
-        pip3 install -r requirements.txt
+        python -m pip install --upgrade pip
+        python -m pip install pip-tools>=7.0.0
+        python -m piptools compile -o requirements.txt pyproject.toml
+        python -m pip install -r requirements.txt
         pyinstaller --onefile --icon=updater.ico updater.py
     - name: "Check if updater works correctly"
       run: |
