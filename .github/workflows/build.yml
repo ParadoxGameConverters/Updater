@@ -23,7 +23,7 @@ jobs:
         else
           PYTHON="./venv/bin/python"
         fi
-        $PYTHON -m pip install --upgrade pip
+        $PYTHON -m pip install --upgrade "pip<26"
         $PYTHON -m pip install "pip-tools>=7.0.0"
         $PYTHON -m piptools compile -o requirements.txt pyproject.toml
         $PYTHON -m pip install -r requirements.txt
